@@ -36,33 +36,39 @@ export default function GameBoard({
       }
     }
 
-    if (turn === 8) {
+    if (turn >= 8) {
       setWinner("Draw");
     }
   }
 
   return (
-    <div className="fill-foreground grid w-full max-w-100 grid-cols-3 gap-2 px-2">
+    <div className="fill-foreground bg-foreground/10 grid w-full max-w-100 grid-cols-3 gap-2">
       {board.map((cell, index) => (
-        <button
+        <div
+          className="bg-background flex aspect-square items-center justify-center"
           key={index}
-          onClick={() => {
-            if (cell || turn >= 9 || winnerCells[1]) return; // ignore if cell is already filled or game is over
-            const newBoard = [...board];
-            newBoard[index] = turn % 2 === 0 ? "X" : "O";
-            checkWinner(newBoard);
-            setBoard(newBoard);
-            setTurn(turn + 1);
-            setCurrentPlayer(turn % 2 === 0 ? "O" : "X");
-          }}
-          className={`bg-foreground/10 focus:bg-foreground/20 hover:bg-foreground/15 active:bg-foreground/25 flex aspect-square items-center justify-center rounded-lg transition-colors focus:outline-none ${winnerCells.includes(index) && "fill-primary"}`}
         >
-          {cell == "X" ? (
-            <SVGIcon name="cross" className="size-[50%]" />
-          ) : cell == "O" ? (
-            <SVGIcon name="circle" className="size-[50%]" />
-          ) : null}
-        </button>
+          <button
+            key={index}
+            onClick={() => {
+              if (cell || turn >= 9 || winnerCells[1]) return; // ignore if cell is already filled or game is over
+              const newBoard = [...board];
+              newBoard[index] = turn % 2 === 0 ? "X" : "O";
+              checkWinner(newBoard);
+              setBoard(newBoard);
+              setTurn(turn + 1);
+              setCurrentPlayer(turn % 2 === 0 ? "O" : "X");
+            }}
+            // className={`bg-foreground/10 focus:bg-foreground/20 hover:bg-foreground/15 active:bg-foreground/25 flex aspect-square items-center justify-center rounded-lg transition-colors focus:outline-none ${winnerCells.includes(index) && "fill-primary"}`}
+            className={`active:bg-primary/15 flex size-[80%] items-center justify-center rounded-full transition-colors focus:outline-none ${winnerCells.includes(index) && "bg-primary fill-background"}`}
+          >
+            {cell == "X" ? (
+              <SVGIcon name="cross" className="size-[50%]" />
+            ) : cell == "O" ? (
+              <SVGIcon name="circle" className="size-[50%]" />
+            ) : null}
+          </button>
+        </div>
       ))}
     </div>
   );

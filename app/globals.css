@@ -3,7 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --primary: var(--color-green-600);
+  --primary: var(--color-emerald-500);
 }
 
 @theme inline {
@@ -18,7 +18,7 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
-    --primary: var(--color-green-400);
+    /* --primary: var(--color-emerald-400); */
   }
 }
 

@@ -24,7 +24,7 @@ export default function Page() {
       <ScoreBoard {...score} />
 
       <div
-        className={`w-full max-w-120 text-center text-2xl ${winner && "text-primary"}`}
+        className={`w-full max-w-120 text-center text-2xl font-bold ${winner && "text-primary"}`}
       >
         {winner == ""
           ? `Player ${currentPlayer} to move`
