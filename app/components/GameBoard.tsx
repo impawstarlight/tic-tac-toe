@@ -45,7 +45,7 @@ export default function GameBoard({
     <div className="fill-foreground bg-foreground/10 grid w-full max-w-100 grid-cols-3 gap-2">
       {cells.map((cell, index) => (
         <div
-          className="bg-background flex aspect-square items-center justify-center"
+          className="bg-background relative flex aspect-square items-center justify-center"
           key={index}
         >
           <button
@@ -61,6 +61,7 @@ export default function GameBoard({
             }}
             className={`active:bg-primary/15 flex size-[80%] items-center justify-center rounded-full transition-colors focus:outline-none ${winnerCells.includes(index) && "bg-primary fill-background"}`}
           >
+            <div className="absolute size-[125%]" />
             {cell == "X" ? (
               <SVGIcon name="cross" className="size-[50%]" />
             ) : cell == "O" ? (
