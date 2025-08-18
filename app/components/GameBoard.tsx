@@ -61,7 +61,7 @@ export default function GameBoard({
             }}
             className={`active:bg-primary/15 flex size-[80%] items-center justify-center rounded-full transition-colors focus:outline-none ${winnerCells.includes(index) && "bg-primary fill-background"}`}
           >
-            <div className="absolute size-[125%]" />
+            <div className="absolute size-[100%]" />
             {cell == "X" ? (
               <SVGIcon name="cross" className="size-[50%]" />
             ) : cell == "O" ? (
