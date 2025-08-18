@@ -17,14 +17,10 @@ export default function Page() {
 
   return (
     <div className="flex min-h-screen min-w-0 flex-col items-center gap-4">
-      {/* <h1 className="bg-foreground/10 w-full p-4 text-center text-4xl font-bold">
-        Tic Tac Toe
-      </h1> */}
-
       <ScoreBoard {...score} />
 
       <div
-        className={`w-full max-w-120 text-center text-2xl font-bold ${winner && "text-primary"}`}
+        className={`w-full text-center text-2xl font-bold ${winner && "text-primary"}`}
       >
         {winner == ""
           ? `Player ${currentPlayer} to move`
