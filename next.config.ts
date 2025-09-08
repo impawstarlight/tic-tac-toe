@@ -2,7 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "export",
-  basePath: "/out",
+  basePath: "/docs",
+  distDir: "/docs",
 };
 
 export default nextConfig;
