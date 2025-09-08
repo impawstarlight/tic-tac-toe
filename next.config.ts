@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // output: "export",
-  // basePath: "/tic-tac-toes",
+  // basePath: "/tic-tac-toe",
   // distDir: "/docs",
 };
 
