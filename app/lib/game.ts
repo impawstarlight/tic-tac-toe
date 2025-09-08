@@ -28,73 +28,53 @@ export const TicTacGame: Game<TicTacState> = {
     firstPlayer: "1",
   }),
 
-  phases: {
-    play: {
-      start: true,
-      moves: {
-        clickCell: ({ G, playerID }, index) => {
-          if (G.roundover || G.cells[index] !== null) return INVALID_MOVE;
-          G.cells[index] = toPlayerSymbol(playerID);
-
-          console.log("clickCell");
-          const winningLine = isVictory(G.cells);
-          if (winningLine) {
-            G.roundover = { winner: G.cells[index], winningLine };
-            G.score[G.cells[index] as "X" | "O"]++;
-          } else if (isDraw(G.cells)) G.roundover = { draw: true };
-        },
-        //   },
-        //   endIf: ({ G }) => (G.roundover ? true : undefined),
-        //   next: "betweenRounds",
-        // },
-        // betweenRounds: {
-        //   moves: {
-        restartGame: ({ G, ctx, events }) => {
-          G.cells.fill(null);
-          G.roundover = null;
-          // G.firstPlayer = { 0: "1", 1: "0" }[G.firstPlayer]!;
-          // events.endTurn({ next: "0" });
-        },
-
-        resetGame: ({ G, ctx, events }) => {
-          G.cells.fill(null);
-          G.roundover = null;
-          G.score = { X: 0, O: 0 };
-          // G.firstPlayer = "1";
-          // events.endTurn({ next: G.firstPlayer });
-        },
-
-        pass: () => {},
-      },
-      // endIf: ({ G }) => (!G.roundover ? true : undefined),
-      // next: "play",
-    },
-  },
-
   turn: {
     minMoves: 1,
     maxMoves: 1,
   },
 
-  moves: {},
+  moves: {
+    clickCell: ({ G, playerID }, index) => {
+      if (G.roundover || G.cells[index] !== null) return INVALID_MOVE;
+      G.cells[index] = toPlayerSymbol(playerID);
 
-  // endIf: ({ G, ctx }): RoundState => {
-  //   const winningLine = isVictory(G.cells);
-  //   console.log("endIf");
-  //   if (winningLine)
-  //     return { winner: toPlayerSymbol(ctx.currentPlayer), winningLine };
-  //   else if (isDraw(G.cells)) return { draw: true };
-  //   return null;
-  // },
+      console.log("clickCell");
+      const winningLine = isVictory(G.cells);
+      if (winningLine) {
+        G.roundover = { winner: G.cells[index], winningLine };
+        G.score[G.cells[index] as "X" | "O"]++;
+      } else if (isDraw(G.cells)) G.roundover = { draw: true };
+    },
+
+    restartGame: ({ G }) => {
+      G.cells.fill(null);
+      G.roundover = null;
+      // G.firstPlayer = { 0: "1", 1: "0" }[G.firstPlayer]!;
+      // events.endTurn({ next: "0" });
+    },
+
+    resetGame: ({ G }) => {
+      G.cells.fill(null);
+      G.roundover = null;
+      G.score = { X: 0, O: 0 };
+      // G.firstPlayer = "1";
+      // events.endTurn({ next: G.firstPlayer });
+    },
+
+    pass: () => {},
+  },
 
   ai: {
-    enumerate: (G, ctx) => {
+    enumerate: (G) => {
+      if (G.roundover) return [{ move: "pass", args: [] }];
+
       const moves = G.cells
         .map((cell, index) => ({
           move: "clickCell",
           args: [index],
         }))
         .filter((move, index) => !G.cells[index]);
+
       console.log(moves);
       if (moves.length === 9 && Math.random() <= 0.5)
         return [{ move: "pass", args: [] }];

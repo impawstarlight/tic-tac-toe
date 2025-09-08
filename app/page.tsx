@@ -22,6 +22,7 @@ const TicTacClient = Client({
   board: TicTacBoard,
   numPlayers: 2,
   multiplayer: Local({ bots: { 1: Bot } }),
+  debug: true,
 });
 
 export default function Page() {
